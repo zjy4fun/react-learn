@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Document</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            class Person {
+                constructor(name, age) {
+                    this.name = name
+                    this.age = age
+                }
+                study() {
+                    console.log(this)
+                }
+            }
+
+            const p1 = new Person('tom', 18)
+            p1.study()//通过实例调用study方法
+            const x = p1.study //局部默认开启严格模式，不允许将study方法赋值给window对象，导致 x 为 undefined
+            x()       //undefined
+        </script>
+    </body>
+</html>
