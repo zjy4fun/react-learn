@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>03-jsx语法规则</title>
+        <script type="text/javascript" src="../js/react.development.js"></script>
+        <script type="text/javascript" src="../js/react-dom.development.js"></script>
+        <script type="text/javascript" src="../js/babel.min.js"></script>
+        <style>
+            .title{
+                background-color: green;
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>jsx语法规则:
+            1. 定义虚拟DOM时,不加引号
+            2. 标签中混入js表达式要是用{}
+            3. 样式的类名指定不要用class，要用className
+            4. 内联样式，要用style={{key:value}}的形式去写
+            5. 只有一个根标签
+            6. 标签必须闭合
+            7. 标签首字母
+             7.1 小写开头，则将该标签转为html中同名元素，如果没有匹配则报错
+             7.2 大写开头，react就去渲染对应的组件，若组件没有定义则报错
+        </div>
+
+        <div id="test"></dic>
+
+        <script type="text/babel">
+            const myId = 'zhAi'
+            const myData = 'jiAyU'
+
+            //1. 创建虚拟DOM
+            const VDOM = (
+                <div>
+                    <h2 className="title" id={myId.toLowerCase()}>
+                        <span style={{color:'white',fontSize:'29px'}}>{myData.toLowerCase()}</span>
+                    </h2>
+                    <input type="text"/>
+                </div>
+            )
+            //2. 渲染虚拟DOM到页面
+            ReactDOM.render(VDOM, document.getElementById('test'))
+        </script>
+    </body>
+</html>
