@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1-高阶函数与函数柯里化的实现</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+</head>
+<body>
+<div id="test"></div>
+<script type="text/babel">
+    /*
+    * 高阶函数：能够传入函数或者返回函数的函数就是高阶函数
+    * 函数柯里化：通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式
+    * function sum(a) {
+    *       return (b)=>{
+    *           return (c) =>{
+    *               return a + b + c
+    *           }
+    *       }
+    * }
+    * */
+    class Login extends React.Component {
+        state = {
+            username: '',
+            password: ''
+        }
+        saveFormData = (dataType) => {
+            return (event) => {
+                this.setState({[dataType]: event.target.value})
+            }
+        }
+
+        handleSubmit = (event) => {
+            event.preventDefault()//阻止表单提交
+            const {username, password} = this.state
+            alert(`你输入的用户名为: ${username}, 你输入的密码是: ${password}`)
+        }
+
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    用户名：<input onChange={this.saveFormData('username')} type="text" name="username"/>
+                    密码：<input onChange={this.saveFormData('password')} type="password" name="password"/>
+                    <button>登录</button>
+                </form>
+            )
+        }
+    }
+
+    ReactDOM.render(<Login/>, document.getElementById('test'))
+</script>
+</body>
+</html>
