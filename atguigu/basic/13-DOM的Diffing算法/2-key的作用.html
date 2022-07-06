@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>key的作用</title>
+    <script src="../js/17.0.1/react.development.js"></script>
+    <script src="../js/17.0.1/react-dom.development.js"></script>
+    <script src="../js/17.0.1/babel.min.js"></script>
+</head>
+<body>
+<div id="test"></div>
+<script type="text/babel">
+    /*
+    * key 是虚拟DOM对象的标识，当状态中的数据发生变化时，react会根据新数据生成新的虚拟DOM，随后react进行新虚拟DOM与旧虚拟DOM的diff比较
+    * 如果在旧虚拟DOM中找到新虚拟DOM相同的key，再比较内容，
+    *       1. 如果虚拟DOM中内容没变，直接复用之前的真实DOM
+    *       2. 如果虚拟DOM中内容变了，则会生成新的真实DOM，随后替换掉页面之中的真实DOM
+    * 如果未找到相同的key
+    *       根据数据创建新的真实DOM，随后渲染到页面
+    * */
+
+    class Person extends React.Component {
+        state = {
+            persons: [
+                {id: 1, name: 'zhang', age: 13},
+                {id: 2, name: 'li', age: 14},
+            ]
+        }
+
+        add = () => {
+            const {persons} = this.state
+            const p = {id: persons.length+1, name: 'wang', age:20}
+            this.setState({persons:[p, ...persons]})
+        }
+        render(){
+            return (
+                <div>
+                    <h2>展示人员信息</h2>
+                    <button onClick={this.add}>添加一个人员信息</button>
+                    <h3>使用index（索引值）作为key</h3>
+                    <ul>
+                        {
+                            this.state.persons.map((personObj, index) => {
+                                return <li key={index}>{personObj.name}---{personObj.age} <input type="text" /></li>
+                            })
+                        }
+                    </ul>
+                    <hr/>
+                    <hr/>
+                    <h3>使用id（数据的唯一标识）作为key</h3>
+                    <ul>
+                        {
+                            this.state.persons.map((personObj) => {
+                                return <li key={personObj.id}>{personObj.name}---{personObj.age} <input type="text" /></li>
+                            })
+                        }
+                    </ul>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Person/>, document.getElementById('test'))
+</script>
+</body>
+</html>
